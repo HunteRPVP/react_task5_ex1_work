@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { MainComponent } from "./MainComponent";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showContainter: false,
+      counter: 0,
+    };
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <button
+          onClick={() =>
+            this.setState((state) => ({
+              showContainter: !state.showContainter,
+            }))
+          }
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          Жми меня
+        </button>
+        <div>
+          <button
+            onClick={() =>
+              this.setState((state) => ({
+                counter: state.counter - 1,
+              }))
+            }
+          >
+            -
+          </button>
+          <strong>{this.state.counter}</strong>
+          <button
+            onClick={() =>
+              this.setState((state) => ({
+                counter: state.counter + 1,
+              }))
+            }
+          >
+            +
+          </button>
+        </div>
+        {this.state.showContainter &&
+          React.createElement(MainComponent, { showMe: true, counter: this.state.counter })}
+      </div>
+    );
+  }
 }
 
 export default App;
